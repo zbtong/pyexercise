@@ -1,9 +1,9 @@
 import string
 
-def findminset(num_letter, words, alphabet):
+def findmincomb(num_letter, words, alphabet):
     global min_num, min_comb
     # find miniset in resurcive way
-    def minset(remain, alphabet, comb, pre_set):
+    def mincomb(remain, alphabet, comb, pre_set):
         global min_num, min_comb
         # get enough letters
         if remain <= 0:
@@ -21,7 +21,7 @@ def findminset(num_letter, words, alphabet):
                 # only when current set small the minimum set, get next letter
                 if len(cur_set) < min_num:
                     comb[-1] = letter
-                    minset(remain-1, alphabet[i+1:], comb, cur_set)
+                    mincomb(remain-1, alphabet[i+1:], comb, cur_set)
             comb.pop()
 
     # build dictionary for every letter in alphabet
@@ -42,12 +42,12 @@ def findminset(num_letter, words, alphabet):
     print(min_num, min_comb)
 
     # do the really work
-    minset(num_letter, alphabet, [], set())
+    mincomb(num_letter, alphabet, [], set())
 
 if __name__ == '__main__':
     with open('words.txt', 'r') as fin:
         words = [line.strip() for line in fin]
     global min_num, min_comb
-    findminset(5, words, string.ascii_lowercase)
+    findmincomb(5, words, string.ascii_lowercase)
     print(min_num, min_comb)
     
